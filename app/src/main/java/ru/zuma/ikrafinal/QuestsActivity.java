@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import ru.zuma.ikrafinal.db.DbManager;
 import ru.zuma.ikrafinal.model.Quest;
 
 public class QuestsActivity extends AppCompatActivity {
@@ -33,6 +35,19 @@ public class QuestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quests);
 
+//        int workSpaceId = getIntent().getIntExtra("workspaceId", -1);
+//        if (workSpaceId == -1) {
+//
+//            Toast.makeText(
+//                QuestsActivity.this,
+//                "workspaceId not found",
+//                Toast.LENGTH_SHORT
+//            );
+//            finish();
+//
+//        }
+
+//        listQuests = DbManager.getInstance().getQuestsList(workSpaceId);
         listQuests = new ArrayList<>();
 
         quest11 = new Quest();
@@ -49,14 +64,14 @@ public class QuestsActivity extends AppCompatActivity {
         quest2.setName("Квест 2");
         quest2.getChildren().add(quest21);
 
+        listQuests.add(quest1);
+        listQuests.add(quest2);
+
         Quest hack = new Quest();
         hack.getChildren().addAll(listQuests);
 
         questStack = new Stack<>();
         questStack.push(hack);
-
-        listQuests.add(quest1);
-        listQuests.add(quest2);
 
         lvQuests = findViewById(R.id.lv_quests);
         adapterQuests = new QuestAdapter(this, listQuests);
@@ -93,7 +108,6 @@ public class QuestsActivity extends AppCompatActivity {
             Quest curr = questStack.peek();
 
             listQuests.clear();
-
             listQuests.addAll(curr.getChildren());
             adapterQuests.notifyDataSetChanged();
 

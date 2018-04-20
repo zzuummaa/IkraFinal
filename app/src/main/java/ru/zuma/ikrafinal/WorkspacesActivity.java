@@ -25,7 +25,7 @@ public class WorkspacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspaces);
 
-        //listWorkspaces = DbManager.getInstance().getWorkspaces();
+//        listWorkspaces = DbManager.getInstance().getWorkspaces();
         listWorkspaces = new ArrayList<>();
         listWorkspaces.add(new Workspace(1, "Проект 1"));
         listWorkspaces.add(new Workspace(2, "Проект 2"));

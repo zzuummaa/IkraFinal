@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">IkraFinal</string>
+    <string name="registration">Регистрация</string>
+    <string name="quests">Квесты</string>
+    <string name="workspaces">Проекты</string>
+    <string name="achievements">Достижения</string>
+    <string name="achievement">Достижение</string>
+    <string name="description">Описание</string>
+    <string name="status">Статус</string>
 </resources>

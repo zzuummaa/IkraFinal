@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="@string/registration" />
+        <activity
+            android:name=".WorkspacesActivity"
+            android:label="@string/workspaces" />
+        <activity
+            android:name=".QuestsActivity"
+            android:label="@string/quests" />
+        <activity
+            android:name=".AchievementsActivity"
+            android:label="@string/achievements"/>
+
+        <activity
+            android:name=".AchievementActivity"
+            android:label="@string/achievement"/>
     </application>
 
 </manifest>

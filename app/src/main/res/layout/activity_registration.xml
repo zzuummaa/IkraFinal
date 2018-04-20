@@ -3,18 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="ru.zuma.ikrafinal.MainActivity">
+    tools:context="ru.zuma.ikrafinal.RegistrationActivity"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_workspaces"
-        android:text="@string/workspaces"
+    <EditText
+        android:id="@+id/et_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/bt_achievements"
-        android:text="@string/achievements"
+        android:id="@+id/bt_register"
+        android:text="@string/registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

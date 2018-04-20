@@ -21,11 +21,12 @@ public final class ObjectConverter {
         Workspace workspace = new Workspace();
         workspace.setId(workspaceDataSet.getId());
         workspace.setName(workspaceDataSet.getName());
+        workspace.setRootQuestId(workspaceDataSet.getRootQuestId());
         return workspace;
     }
 
     public static Quest createQuest(QuestDataSet questDataSet) {
-        Quest quest = new Quest();
+        Quest quest = new Quest(questDataSet.isWorkspaceRoot());
         quest.setId(questDataSet.getId());
         quest.setWorkspaceId(questDataSet.getWorkspaceId());
         quest.setCompleted(questDataSet.isCompleted());

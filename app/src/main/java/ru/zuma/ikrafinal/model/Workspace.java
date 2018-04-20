@@ -7,14 +7,16 @@ package ru.zuma.ikrafinal.model;
 public class Workspace {
 
     private long id;
+    private long rootQuestId;
     private String name;
 
     public Workspace()
     {
     }
 
-    public Workspace(long id, String name) {
+    public Workspace(long id, long rootQuestId, String name) {
         this.id = id;
+        this.rootQuestId = rootQuestId;
         this.name = name;
     }
 
@@ -32,5 +34,13 @@ public class Workspace {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getRootQuestId() {
+        return rootQuestId;
+    }
+
+    public void setRootQuestId(long rootQuestId) {
+        this.rootQuestId = rootQuestId;
     }
 }

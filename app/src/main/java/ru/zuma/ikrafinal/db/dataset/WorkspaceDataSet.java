@@ -18,14 +18,18 @@ public class WorkspaceDataSet extends BaseModel {
     private long id;
 
     @Column
+    private long rootQuestId;
+
+    @Column
     private String name;
 
     public WorkspaceDataSet()
     {
     }
 
-    public WorkspaceDataSet(long id, String name) {
+    public WorkspaceDataSet(long id, long rootQuestId, String name) {
         this.id = id;
+        this.rootQuestId = rootQuestId;
         this.name = name;
     }
 
@@ -47,5 +51,13 @@ public class WorkspaceDataSet extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getRootQuestId() {
+        return rootQuestId;
+    }
+
+    public void setRootQuestId(long rootQuestId) {
+        this.rootQuestId = rootQuestId;
     }
 }

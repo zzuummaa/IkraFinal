@@ -37,14 +37,21 @@ public class QuestDataSet extends BaseModel {
     private String deadline;
 
     @Column
+    private boolean isMandatory;
+
+    @Column
     private boolean isCompleted;
+
+    @Column
+    private boolean isWorkspaceRoot;
 
     public QuestDataSet()
     {
     }
 
     public QuestDataSet(long id, long workspaceId, String name, String description,
-                        String tagString, long priority, String deadline, boolean isCompleted) {
+                        String tagString, long priority, String deadline, boolean isCompleted,
+                        boolean isWorkspaceRoot) {
         this.id = id;
         this.workspaceId = workspaceId;
         this.name = name;
@@ -53,17 +60,21 @@ public class QuestDataSet extends BaseModel {
         this.priority = priority;
         this.deadline = deadline;
         this.isCompleted = isCompleted;
+        this.isWorkspaceRoot = isWorkspaceRoot;
     }
 
     public QuestDataSet(long workspaceId, String name, String description, String tagString,
-                        long priority, String deadline, boolean isCompleted) {
+                        long priority, String deadline, boolean isMandatory, boolean isCompleted,
+                        boolean isWorkspaceRoot) {
         this.workspaceId = workspaceId;
         this.name = name;
         this.description = description;
         this.tagString = tagString;
         this.priority = priority;
         this.deadline = deadline;
+        this.isMandatory = isMandatory;
         this.isCompleted = isCompleted;
+        this.isWorkspaceRoot = isWorkspaceRoot;
     }
 
     public long getId() {
@@ -126,7 +137,23 @@ public class QuestDataSet extends BaseModel {
         return isCompleted;
     }
 
+    public boolean isMandatory() {
+        return isMandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        isMandatory = mandatory;
+    }
+
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    public boolean isWorkspaceRoot() {
+        return isWorkspaceRoot;
+    }
+
+    public void setWorkspaceRoot(boolean workspaceRoot) {
+        isWorkspaceRoot = workspaceRoot;
     }
 }

@@ -45,10 +45,21 @@ public class DbManager {
         return result;
     }
 
-    public long addWorkspace(Workspace workspace) {
+    public Workspace addWorkspace(Workspace workspace) {
         WorkspaceDataSet workspaceDataSet = new WorkspaceDataSet();
         workspaceDataSet.setName(workspace.getName());
-        return workspaceDataSet.insert();
+        long workspaceId = workspaceDataSet.insert();
+        workspaceDataSet.setId(workspaceId);
+
+        QuestDataSet questDataSet = new QuestDataSet();
+        questDataSet.setWorkspaceRoot(true);
+        questDataSet.setWorkspaceId(workspaceId);
+        long questId = questDataSet.insert();
+
+        workspaceDataSet.setRootQuestId(questId);
+        workspaceDataSet.update();
+
+        return new Workspace(workspaceId, questId, workspace.getName());
     }
 
     public Quest getQuestsGraph(final long workspaceId) {
@@ -90,25 +101,28 @@ public class DbManager {
     public long addQuest(final Quest quest) {
         QuestDataSet questDataSet = new QuestDataSet();
         questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setMandatory(quest.isMandatory());
         questDataSet.setDeadline(quest.getDeadline());
         questDataSet.setDescription(quest.getDescription());
         questDataSet.setName(quest.getName());
         questDataSet.setPriority(quest.getPriority());
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
-
+        questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
         return questDataSet.insert();
     }
 
     public long addQuest(final Quest quest, long... parents) {
         QuestDataSet questDataSet = new QuestDataSet();
         questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setMandatory(quest.isMandatory());
         questDataSet.setDeadline(quest.getDeadline());
         questDataSet.setDescription(quest.getDescription());
         questDataSet.setName(quest.getName());
         questDataSet.setPriority(quest.getPriority());
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
+        questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
 
         long questId = questDataSet.insert();
 
@@ -127,12 +141,14 @@ public class DbManager {
         QuestDataSet questDataSet = new QuestDataSet();
         questDataSet.setId(quest.getId());
         questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setMandatory(quest.isMandatory());
         questDataSet.setDeadline(quest.getDeadline());
         questDataSet.setDescription(quest.getDescription());
         questDataSet.setName(quest.getName());
         questDataSet.setPriority(quest.getPriority());
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
+        questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
         questDataSet.update();
     }
 
@@ -142,6 +158,16 @@ public class DbManager {
             parentDataSet.setWorkspaceId(quest.getWorkspaceId());
             parentDataSet.setParentId(parent);
             parentDataSet.setChildId(quest.getId());
+            parentDataSet.insert();
+        }
+    }
+
+    public void addQuestChildren(Quest quest, long... children) {
+        for (long child : children) {
+            ParentDataSet parentDataSet = new ParentDataSet();
+            parentDataSet.setWorkspaceId(quest.getWorkspaceId());
+            parentDataSet.setParentId(quest.getId());
+            parentDataSet.setChildId(child);
             parentDataSet.insert();
         }
     }
@@ -179,8 +205,6 @@ public class DbManager {
 
     private Quest createQuestGraph(final List<Quest> allQuests,
                                    final List<ParentDataSet> parentList) {
-        Quest root = new Quest();
-        root.setId(-1);
 
         Map<Long, Quest> questMap = new HashMap<>();
         Map<Long, Quest> parentQuests = new HashMap<>();
@@ -212,10 +236,12 @@ public class DbManager {
         }
 
         for (Quest quest : parentQuests.values()) {
-            root.getChildren().add(quest);
+            if (quest.isWorkspaceRoot()) {
+                return quest;
+            }
         }
 
-        return root;
+        return new Quest(true);
     }
 
     private List<Quest> createQuestList(final List<Quest> allQuests,

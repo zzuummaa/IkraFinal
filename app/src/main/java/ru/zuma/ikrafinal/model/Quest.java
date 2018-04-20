@@ -17,16 +17,20 @@ public class Quest {
     private long priority;
     private String deadline;
     private boolean isCompleted = false;
+    private boolean isMandatory = true;
+    private boolean isWorkspaceRoot;
     private List<Quest> children;
 
-    public Quest()
+    public Quest(boolean isWorkspaceRoot)
     {
+        this.isWorkspaceRoot = isWorkspaceRoot;
         children = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
     public Quest(long id, long workspaceId, String name, String description, List<String> tags,
-                 long priority, String deadline, boolean isCompleted, List<Quest> children) {
+                 long priority, String deadline, boolean isCompleted, boolean isMandatory,
+                 boolean isWorkspaceRoot, List<Quest> children) {
         this.id = id;
         this.workspaceId = workspaceId;
         this.name = name;
@@ -35,6 +39,8 @@ public class Quest {
         this.priority = priority;
         this.deadline = deadline;
         this.isCompleted = isCompleted;
+        this.isMandatory = isMandatory;
+        this.isWorkspaceRoot = isWorkspaceRoot;
         this.children = new ArrayList<>(children);
     }
 
@@ -96,6 +102,18 @@ public class Quest {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    public boolean isMandatory() {
+        return isMandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        isMandatory = mandatory;
+    }
+
+    public boolean isWorkspaceRoot() {
+        return isWorkspaceRoot;
     }
 
     public List<Quest> getChildren() {

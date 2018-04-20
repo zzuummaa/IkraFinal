@@ -22,7 +22,7 @@ public class AppDatabase {
 
     private static boolean isFirstLaunch = false;
 
-    public static boolean isIsFirstLaunch() {
+    public static boolean isFirstLaunch() {
         return isFirstLaunch;
     }
 

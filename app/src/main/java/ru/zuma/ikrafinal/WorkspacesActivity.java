@@ -25,10 +25,7 @@ public class WorkspacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspaces);
 
-//        listWorkspaces = DbManager.getInstance().getWorkspaces();
-        listWorkspaces = new ArrayList<>();
-        listWorkspaces.add(new Workspace(1, "Проект 1"));
-        listWorkspaces.add(new Workspace(2, "Проект 2"));
+        listWorkspaces = DbManager.getInstance().getWorkspaces();
 
         lvWorkspaces = findViewById(R.id.lv_workspaces);
         adapterWorkspaces = new WorkspaceAdapter(this, listWorkspaces);
@@ -39,7 +36,8 @@ public class WorkspacesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(WorkspacesActivity.this, QuestsActivity.class);
-                intent.putExtra("workspaceId", position);
+                Workspace workspace = listWorkspaces.get(position);
+                intent.putExtra("workspaceId", workspace.getId());
                 startActivity(intent);
 
             }

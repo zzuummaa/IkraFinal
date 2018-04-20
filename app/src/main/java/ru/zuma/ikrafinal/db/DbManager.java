@@ -123,6 +123,42 @@ public class DbManager {
         return questId;
     }
 
+    public void updateQuest(Quest quest) {
+        QuestDataSet questDataSet = new QuestDataSet();
+        questDataSet.setId(quest.getId());
+        questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setDeadline(quest.getDeadline());
+        questDataSet.setDescription(quest.getDescription());
+        questDataSet.setName(quest.getName());
+        questDataSet.setPriority(quest.getPriority());
+        questDataSet.setTagString("");
+        questDataSet.setWorkspaceId(quest.getWorkspaceId());
+        questDataSet.update();
+    }
+
+    public void addQuestParent(Quest quest, long... parents) {
+        for (long parent : parents) {
+            ParentDataSet parentDataSet = new ParentDataSet();
+            parentDataSet.setWorkspaceId(quest.getWorkspaceId());
+            parentDataSet.setParentId(parent);
+            parentDataSet.setChildId(quest.getId());
+            parentDataSet.insert();
+        }
+    }
+
+    public void removeQuest(Quest quest) {
+        QuestDataSet questDataSet = new QuestDataSet();
+        questDataSet.setId(quest.getId());
+        List<ParentDataSet> parentDataSets = SQLite.select()
+                .from(ParentDataSet.class)
+                .where(ParentDataSet_Table.childId.eq(quest.getId()))
+                .queryList();
+        for (ParentDataSet parentDataSet : parentDataSets) {
+            parentDataSet.delete();
+        }
+        questDataSet.delete();
+    }
+
     public long addUser(final User user) {
         UserDataSet userDataSet = new UserDataSet();
         userDataSet.setName(user.getName());

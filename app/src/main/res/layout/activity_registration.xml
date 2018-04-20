@@ -6,13 +6,19 @@
     tools:context="ru.zuma.ikrafinal.RegistrationActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
     <EditText
         android:id="@+id/et_login"
+        android:text="@string/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/et_pass"
+        android:text="@string/password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

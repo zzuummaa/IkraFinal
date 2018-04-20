@@ -3,8 +3,17 @@ package ru.zuma.ikrafinal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
+import com.mikepenz.iconics.typeface.FontAwesome;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
     private final int REGISTRATION_RESULT = 0;
@@ -13,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActionBar.addActionBar(this);
 
         Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
         startActivityForResult(intent, REGISTRATION_RESULT);

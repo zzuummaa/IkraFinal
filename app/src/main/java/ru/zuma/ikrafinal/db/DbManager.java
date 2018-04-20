@@ -11,9 +11,11 @@ import ru.zuma.ikrafinal.db.dataset.ParentDataSet;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet_Table;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet_Table;
+import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
 import ru.zuma.ikrafinal.db.util.ObjectConverter;
 import ru.zuma.ikrafinal.model.Quest;
+import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
 
 /**
@@ -77,6 +79,37 @@ class DbManager {
                 .queryList();
 
         return createQuestList(quests, parentRelations);
+    }
+
+    public long addQuest(final Quest quest) {
+        QuestDataSet questDataSet = new QuestDataSet();
+        questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setDeadline(quest.getDeadline());
+        questDataSet.setDescription(quest.getDescription());
+        questDataSet.setName(quest.getName());
+        questDataSet.setPriority(quest.getPriority());
+        questDataSet.setTagString("");
+        questDataSet.setWorkspaceId(quest.getWorkspaceId());
+
+        return questDataSet.insert();
+    }
+
+    public long addUser(final User user) {
+        UserDataSet userDataSet = new UserDataSet();
+        userDataSet.setName(user.getName());
+        userDataSet.setPassword(user.getPassword());
+        return userDataSet.insert();
+    }
+
+    public User getUser() {
+        List<UserDataSet> userDataSets = SQLite.select()
+                .from(UserDataSet.class)
+                .queryList();
+
+        if (!userDataSets.isEmpty()) {
+            return ObjectConverter.createUser(userDataSets.get(0));
+        }
+        return null;
     }
 
     private Quest createQuestGraph(final List<Quest> allQuests,

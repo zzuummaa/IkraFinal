@@ -55,6 +55,17 @@ public class QuestDataSet extends BaseModel {
         this.isCompleted = isCompleted;
     }
 
+    public QuestDataSet(long workspaceId, String name, String description, String tagString,
+                        long priority, String deadline, boolean isCompleted) {
+        this.workspaceId = workspaceId;
+        this.name = name;
+        this.description = description;
+        this.tagString = tagString;
+        this.priority = priority;
+        this.deadline = deadline;
+        this.isCompleted = isCompleted;
+    }
+
     public long getId() {
         return id;
     }

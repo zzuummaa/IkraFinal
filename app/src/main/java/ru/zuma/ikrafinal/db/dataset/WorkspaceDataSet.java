@@ -28,6 +28,10 @@ public class WorkspaceDataSet {
         this.name = name;
     }
 
+    public WorkspaceDataSet(String name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

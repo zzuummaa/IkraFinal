@@ -1,8 +1,10 @@
 package ru.zuma.ikrafinal.db.util;
 
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
+import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
 import ru.zuma.ikrafinal.model.Quest;
+import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
 
 /**
@@ -31,5 +33,13 @@ public final class ObjectConverter {
         quest.setName(questDataSet.getName());
         quest.setPriority(questDataSet.getPriority());
         return quest;
+    }
+
+    public static User createUser(UserDataSet userDataSet) {
+        User user = new User();
+        user.setId(userDataSet.getId());
+        user.setName(userDataSet.getName());
+        user.setPassword(userDataSet.getPassword());
+        return user;
     }
 }

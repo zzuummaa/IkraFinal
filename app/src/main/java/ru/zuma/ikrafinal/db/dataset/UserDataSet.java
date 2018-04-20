@@ -3,6 +3,7 @@ package ru.zuma.ikrafinal.db.dataset;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import ru.zuma.ikrafinal.db.AppDatabase;
 
@@ -11,7 +12,7 @@ import ru.zuma.ikrafinal.db.AppDatabase;
  */
 
 @Table(database = AppDatabase.class)
-public class UserDataSet {
+public class UserDataSet extends BaseModel {
 
     @Column
     @PrimaryKey(autoincrement = true)
@@ -29,6 +30,11 @@ public class UserDataSet {
 
     public UserDataSet(long id, String name, String password) {
         this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public UserDataSet(String name, String password) {
         this.name = name;
         this.password = password;
     }

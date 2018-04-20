@@ -26,7 +26,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 User user = new User();
                 user.setName(nameEdit.getText().toString());
-                user.setPassword(nameEdit.getText().toString());
+                user.setPassword(passEdit.getText().toString());
                 DbManager.getInstance().addUser(user);
                 setResult(RESULT_OK, new Intent());
                 finish();

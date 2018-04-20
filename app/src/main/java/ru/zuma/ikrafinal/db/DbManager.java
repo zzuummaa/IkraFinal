@@ -45,6 +45,12 @@ public class DbManager {
         return result;
     }
 
+    public long addWorkspace(Workspace workspace) {
+        WorkspaceDataSet workspaceDataSet = new WorkspaceDataSet();
+        workspaceDataSet.setName(workspace.getName());
+        return workspaceDataSet.insert();
+    }
+
     public Quest getQuestsGraph(final long workspaceId) {
         List<QuestDataSet> questDataSets = SQLite.select()
                 .from(QuestDataSet.class)

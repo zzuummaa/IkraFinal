@@ -14,6 +14,7 @@ import ru.zuma.ikrafinal.db.AppDatabase;
 @Table(database = AppDatabase.class)
 public class QuestDataSet extends BaseModel {
 
+    @Column
     @PrimaryKey(autoincrement = true)
     private long id;
 

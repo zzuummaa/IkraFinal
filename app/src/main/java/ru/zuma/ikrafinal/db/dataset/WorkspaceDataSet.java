@@ -11,26 +11,21 @@ import ru.zuma.ikrafinal.db.AppDatabase;
  */
 
 @Table(database = AppDatabase.class)
-public class UserDataSet {
+public class WorkspaceDataSet {
 
-    @Column
     @PrimaryKey(autoincrement = true)
     private long id;
 
     @Column
     private String name;
 
-    @Column
-    private String password;
-
-    public UserDataSet()
+    public WorkspaceDataSet()
     {
     }
 
-    public UserDataSet(long id, String name, String password) {
+    public WorkspaceDataSet(long id, String name) {
         this.id = id;
         this.name = name;
-        this.password = password;
     }
 
     public long getId() {
@@ -47,13 +42,5 @@ public class UserDataSet {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

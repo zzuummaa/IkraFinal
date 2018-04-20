@@ -3,13 +3,8 @@ package ru.zuma.ikrafinal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import ru.zuma.ikrafinal.db.DbManager;
-import ru.zuma.ikrafinal.model.Quest;
-
 public class MainActivity extends AppCompatActivity {
     private final int REGISTRATION_RESULT = 0;
 
@@ -17,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActionBar.addActionBar(this);
 
         Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
         startActivityForResult(intent, REGISTRATION_RESULT);

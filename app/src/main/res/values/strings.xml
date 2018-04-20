@@ -7,4 +7,8 @@
     <string name="achievement">Достижение</string>
     <string name="description">Описание</string>
     <string name="status">Статус</string>
+    <string name="name">Название</string>
+    <string name="priority">Приоритет</string>
+    <string name="deadline">Время окончания</string>
+    <string name="add">Добавить</string>
 </resources>

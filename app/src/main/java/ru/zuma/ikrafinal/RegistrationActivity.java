@@ -39,14 +39,14 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onStart();
         User user = DbManager.getInstance().getUser();
         if (user != null) {
-            setResult(RESULT_OK, new Intent());
+            setResult(RESULT_OK);
             finish();
         }
     }
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_CANCELED, new Intent());
+        setResult(RESULT_CANCELED);
         finish();
     }
 }

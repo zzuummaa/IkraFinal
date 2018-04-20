@@ -14,7 +14,7 @@ import ru.zuma.ikrafinal.db.AppDatabase;
 @Table(database = AppDatabase.class)
 public class ParentDataSet extends BaseModel {
 
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     private long id;
 
     @Column

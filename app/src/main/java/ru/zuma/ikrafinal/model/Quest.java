@@ -16,7 +16,7 @@ public class Quest {
     private List<String> tags;
     private long priority;
     private String deadline;
-    private boolean isCompleted;
+    private boolean isCompleted = false;
     private List<Quest> children;
 
     public Quest()

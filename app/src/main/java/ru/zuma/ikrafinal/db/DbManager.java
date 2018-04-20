@@ -22,10 +22,10 @@ import ru.zuma.ikrafinal.model.Workspace;
  * Created by sibirsky on 20.04.18.
  */
 
-class DbManager {
+public class DbManager {
     private static final DbManager ourInstance = new DbManager();
 
-    static DbManager getInstance() {
+    public static DbManager getInstance() {
         return ourInstance;
     }
 
@@ -94,6 +94,29 @@ class DbManager {
         return questDataSet.insert();
     }
 
+    public long addQuest(final Quest quest, long... parents) {
+        QuestDataSet questDataSet = new QuestDataSet();
+        questDataSet.setCompleted(quest.isCompleted());
+        questDataSet.setDeadline(quest.getDeadline());
+        questDataSet.setDescription(quest.getDescription());
+        questDataSet.setName(quest.getName());
+        questDataSet.setPriority(quest.getPriority());
+        questDataSet.setTagString("");
+        questDataSet.setWorkspaceId(quest.getWorkspaceId());
+
+        long questId = questDataSet.insert();
+
+        for (long parent : parents) {
+            ParentDataSet parentDataSet = new ParentDataSet();
+            parentDataSet.setWorkspaceId(quest.getWorkspaceId());
+            parentDataSet.setParentId(parent);
+            parentDataSet.setChildId(questId);
+            parentDataSet.insert();
+        }
+
+        return questId;
+    }
+
     public long addUser(final User user) {
         UserDataSet userDataSet = new UserDataSet();
         userDataSet.setName(user.getName());
@@ -133,6 +156,7 @@ class DbManager {
             } else {
                 parentRelations.get(dataSet.getParentId()).add(dataSet.getChildId());
             }
+            parentQuests.remove(dataSet.getChildId());
         }
 
         for (Quest quest : allQuests) {
@@ -141,7 +165,6 @@ class DbManager {
                 for (Long child : children) {
                     Quest childQuest = questMap.get(child);
                     quest.getChildren().add(childQuest);
-                    parentQuests.remove(child);
                 }
             }
         }
@@ -155,6 +178,8 @@ class DbManager {
 
     private List<Quest> createQuestList(final List<Quest> allQuests,
                                         final List<ParentDataSet> parentList) {
+
+        List<Quest> root = new ArrayList<>();
 
         Map<Long, Quest> questMap = new HashMap<>();
         for (Quest quest : allQuests) {
@@ -180,8 +205,9 @@ class DbManager {
                     quest.getChildren().add(childQuest);
                 }
             }
+            root.add(quest);
         }
 
-        return allQuests;
+        return root;
     }
 }

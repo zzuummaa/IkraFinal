@@ -4,8 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:background="@color/colorPrimaryDark"
     tools:context="ru.zuma.ikrafinal.QuestsActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/questList"
+        android:layout_gravity="center"
+        android:textSize="60px"/>
     <ListView
         android:id="@+id/lv_quests"
         android:layout_width="match_parent"

@@ -19,20 +19,4 @@ public class AppDatabase {
     public static final String NAME = "AppDatabase";
 
     public static final int VERSION = 1;
-
-    private static boolean isFirstLaunch = false;
-
-    public static boolean isFirstLaunch() {
-        return isFirstLaunch;
-    }
-
-    @Migration(version = 0, database = AppDatabase.class)
-    public static class StubMigration extends BaseMigration {
-
-        @Override
-        public void migrate(@NonNull DatabaseWrapper database) {
-            isFirstLaunch = true;
-        }
-    }
-
 }

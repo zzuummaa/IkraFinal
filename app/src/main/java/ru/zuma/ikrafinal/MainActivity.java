@@ -25,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btAchievements = findViewById(R.id.bt_achievements);
+        btAchievements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AchievementsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

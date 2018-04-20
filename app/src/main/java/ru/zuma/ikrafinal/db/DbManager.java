@@ -22,10 +22,10 @@ import ru.zuma.ikrafinal.model.Workspace;
  * Created by sibirsky on 20.04.18.
  */
 
-class DbManager {
+public class DbManager {
     private static final DbManager ourInstance = new DbManager();
 
-    static DbManager getInstance() {
+    public static DbManager getInstance() {
         return ourInstance;
     }
 

@@ -1,22 +1,32 @@
 package ru.zuma.ikrafinal;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
+import ru.zuma.ikrafinal.model.Quest;
 
 public class QuestsActivity extends AppCompatActivity {
+    private final static String LOG_TAG = QuestsActivity.class.getSimpleName();
 
-    List<String> listQuests;
-    ArrayAdapter<String> adapterQuests;
+    Stack<Quest> questStack;
+
+    List<Quest> listQuests;
+    QuestAdapter adapterQuests;
     ListView lvQuests;
+
+    Quest quest1;
+    Quest quest11;
+
+    Quest quest2;
+    Quest quest21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +34,69 @@ public class QuestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quests);
 
         listQuests = new ArrayList<>();
-        listQuests.add("Квест 1");
-        listQuests.add("Квест 2");
+
+        quest11 = new Quest();
+        quest11.setName("Квест 11");
+
+        quest1 = new Quest();
+        quest1.setName("Квест 1");
+        quest1.getChildren().add(quest11);
+
+        quest21 = new Quest();
+        quest21.setName("Квест 21");
+
+        quest2 = new Quest();
+        quest2.setName("Квест 2");
+        quest2.getChildren().add(quest21);
+
+        Quest hack = new Quest();
+        hack.getChildren().addAll(listQuests);
+
+        questStack = new Stack<>();
+        questStack.push(hack);
+
+        listQuests.add(quest1);
+        listQuests.add(quest2);
 
         lvQuests = findViewById(R.id.lv_quests);
-        adapterQuests = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, listQuests);
+        adapterQuests = new QuestAdapter(this, listQuests);
 
         lvQuests.setAdapter(adapterQuests);
         lvQuests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(
-                    QuestsActivity.this,
-                    listQuests.get(position) + " нажат",
-                    Toast.LENGTH_SHORT
-                ).show();
+
+                Log.d(LOG_TAG, "listView item clicked");
+
+                Quest children = listQuests.get(position);
+                questStack.push(children);
+                listQuests.clear();
+                listQuests.addAll(children.getChildren());
+                adapterQuests.notifyDataSetChanged();
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(LOG_TAG, "onBackPressed()");
+
+        questStack.pop();
+
+        if (questStack.empty()) {
+
+            finish();
+
+        } else {
+
+            Quest curr = questStack.peek();
+
+            listQuests.clear();
+
+            listQuests.addAll(curr.getChildren());
+            adapterQuests.notifyDataSetChanged();
+
+        }
     }
 }

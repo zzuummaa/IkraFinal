@@ -17,11 +17,15 @@ public class RegistrationActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("isRegistered", true);
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_OK, new Intent());
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED, new Intent());
+        finish();
     }
 }

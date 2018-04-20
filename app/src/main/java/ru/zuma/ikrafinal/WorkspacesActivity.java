@@ -11,10 +11,13 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.zuma.ikrafinal.db.DbManager;
+import ru.zuma.ikrafinal.model.Workspace;
+
 public class WorkspacesActivity extends AppCompatActivity {
 
-    List<String> listWorkspaces;
-    ArrayAdapter<String> adapterWorkspaces;
+    List<Workspace> listWorkspaces;
+    WorkspaceAdapter adapterWorkspaces;
     ListView lvWorkspaces;
 
     @Override
@@ -22,13 +25,13 @@ public class WorkspacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspaces);
 
+        //listWorkspaces = DbManager.getInstance().getWorkspaces();
         listWorkspaces = new ArrayList<>();
-        listWorkspaces.add("Проект 1");
-        listWorkspaces.add("Проект 2");
+        listWorkspaces.add(new Workspace(1, "Проект 1"));
+        listWorkspaces.add(new Workspace(2, "Проект 2"));
 
         lvWorkspaces = findViewById(R.id.lv_workspaces);
-        adapterWorkspaces = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, listWorkspaces);
+        adapterWorkspaces = new WorkspaceAdapter(this, listWorkspaces);
 
         lvWorkspaces.setAdapter(adapterWorkspaces);
         lvWorkspaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {

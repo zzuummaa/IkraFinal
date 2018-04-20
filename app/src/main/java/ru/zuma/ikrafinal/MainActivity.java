@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REGISTRATION_RESULT) {
-            if (!data.getBooleanExtra("isRegistered", false)) {
+            if (resultCode == RESULT_CANCELED) {
                 finish();
             }
         }

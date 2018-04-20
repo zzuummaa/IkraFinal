@@ -13,6 +13,7 @@ import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet_Table;
 import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
+import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet_Table;
 import ru.zuma.ikrafinal.db.util.ObjectConverter;
 import ru.zuma.ikrafinal.model.Quest;
 import ru.zuma.ikrafinal.model.User;
@@ -60,6 +61,17 @@ public class DbManager {
         workspaceDataSet.update();
 
         return new Workspace(workspaceId, questId, workspace.getName());
+    }
+
+    public Workspace getWorkspace(long id) {
+        WorkspaceDataSet workspaceDataSet = SQLite.select()
+                .from(WorkspaceDataSet.class)
+                .where(WorkspaceDataSet_Table.id.eq(id))
+                .querySingle();
+        if (workspaceDataSet != null) {
+            return ObjectConverter.createWorkspace(workspaceDataSet);
+        }
+        return new Workspace();
     }
 
     public Quest getQuestsGraph(final long workspaceId) {

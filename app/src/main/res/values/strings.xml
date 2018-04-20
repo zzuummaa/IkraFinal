@@ -14,4 +14,6 @@
     <string name="today">Сегодня</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
+    <string name="welcome">Добро Пожаловать в kraFinal!</string>
+    <string name="questList">Список квестов</string>
 </resources>

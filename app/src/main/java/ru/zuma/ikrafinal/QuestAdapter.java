@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.zuma.ikrafinal.model.Quest;
-import ru.zuma.ikrafinal.model.Workspace;
 
 /**
  * Created by Stephan on 20.04.2018.

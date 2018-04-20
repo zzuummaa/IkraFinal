@@ -23,7 +23,7 @@ public class ParentDataSet {
         this.childId = childId;
     }
 
-    public long getParentId(
+    public long getParentId() {
         return parentId;
     }
 

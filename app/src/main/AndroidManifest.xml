@@ -28,11 +28,13 @@
             android:label="@string/quests" />
         <activity
             android:name=".AchievementsActivity"
-            android:label="@string/achievements"/>
-
+            android:label="@string/achievements" />
         <activity
             android:name=".AchievementActivity"
-            android:label="@string/achievement"/>
+            android:label="@string/achievement" />
+        <activity android:name=".AddWorkspaceActivity" />
+        <activity android:name=".AddQuestActivity" />
+        <activity android:name=".QuestsListActivity"></activity>
     </application>
 
 </manifest>

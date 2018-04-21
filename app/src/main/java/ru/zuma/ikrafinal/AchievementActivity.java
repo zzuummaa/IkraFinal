@@ -22,7 +22,7 @@ public class AchievementActivity extends AppCompatActivity {
                 AchievementActivity.this,
                 "achievementId not found",
                 Toast.LENGTH_SHORT
-            );
+            ).show();
             finish();
 
         } else {

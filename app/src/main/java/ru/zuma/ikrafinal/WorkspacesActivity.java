@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.zuma.ikrafinal.db.DbManager;
 import ru.zuma.ikrafinal.model.Workspace;
 
 public class WorkspacesActivity extends AppCompatActivity {
+    static int ADD_WORKSPACE_RESULT = 0;
 
     List<Workspace> listWorkspaces;
     WorkspaceAdapter adapterWorkspaces;
@@ -42,5 +42,33 @@ public class WorkspacesActivity extends AppCompatActivity {
 
             }
         });
+
+        Button btAddWorkspace = (Button) findViewById(R.id.bt_add_workspace);
+        btAddWorkspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WorkspacesActivity.this, AddWorkspaceActivity.class);
+                startActivityForResult(intent, ADD_WORKSPACE_RESULT);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_WORKSPACE_RESULT && resultCode == RESULT_OK) {
+
+            long workspaceId = data.getLongExtra("workspaceId", -1);
+            if (workspaceId != -1) {
+
+                // TODO get single workspace from db by workspaceId
+                List<Workspace> workspaces = DbManager.getInstance().getWorkspaces();
+                listWorkspaces.clear();
+                listWorkspaces.addAll(workspaces);
+                adapterWorkspaces.notifyDataSetChanged();
+
+            }
+
+        }
     }
 }

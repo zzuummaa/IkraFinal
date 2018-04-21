@@ -2,9 +2,23 @@
     <string name="app_name">IkraFinal</string>
     <string name="registration">Регистрация</string>
     <string name="quests">Квесты</string>
-    <string name="workspaces">Проекты</string>
+    <string name="workspaces">Группа</string>
     <string name="achievements">Достижения</string>
     <string name="achievement">Достижение</string>
     <string name="description">Описание</string>
     <string name="status">Статус</string>
+    <string name="name">Название</string>
+    <string name="priority">Приоритет</string>
+    <string name="deadline">Время окончания</string>
+    <string name="add">Добавить</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="tasks">Задачи</string>
+    <string name="categories">Категории</string>
+    <string name="today">Сегодня</string>
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
+    <string name="welcome">Добро Пожаловать в kraFinal!</string>
+    <string name="questList">Список квестов</string>
+    <string name="add_workspace">Добавить проект</string>
 </resources>

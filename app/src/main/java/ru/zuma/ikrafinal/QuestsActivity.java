@@ -1,10 +1,12 @@
 package ru.zuma.ikrafinal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,7 +19,9 @@ import ru.zuma.ikrafinal.model.Quest;
 
 public class QuestsActivity extends AppCompatActivity {
     private final static String LOG_TAG = QuestsActivity.class.getSimpleName();
+    private final static int QUEST_LIST_RESULT = 0;
 
+    private long workSpaceId;
     private List<Quest> listQuests;
     private QuestAdapter adapterQuests;
     private ListView lvQuests;
@@ -29,7 +33,7 @@ public class QuestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quests);
 
-        long workSpaceId = getIntent().getLongExtra("workspaceId", -1);
+        workSpaceId = getIntent().getLongExtra("workspaceId", -1);
         if (workSpaceId == -1) {
 
             Toast.makeText(
@@ -68,6 +72,33 @@ public class QuestsActivity extends AppCompatActivity {
 
             }
         });
+
+        Button btQuestsList = (Button) findViewById(R.id.bt_quests_list);
+        btQuestsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestsActivity.this, QuestsListActivity.class);
+                intent.putExtra("workspaceId", workSpaceId);
+                startActivityForResult(intent, QUEST_LIST_RESULT);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == QUEST_LIST_RESULT && resultCode == RESULT_OK) {
+
+            boolean isQuestsChanged = data.getBooleanExtra("isQuestsChanged", false);
+            if (isQuestsChanged) {
+
+                List<Quest> quests = DbManager.getInstance().getQuestsList(workSpaceId);
+                listQuests.clear();
+                listQuests.addAll(quests);
+                adapterQuests.notifyDataSetChanged();
+
+            }
+
+        }
     }
 
     @Override

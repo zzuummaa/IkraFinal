@@ -76,6 +76,7 @@ public class QuestAdapter extends BaseAdapter{
                     ((CheckBox) view).setChecked(true);
                     ((CheckBox) view).setEnabled(false);
                     DbManager.getInstance().updateQuest(p);
+                    QuestMechanics.calculateAchievement(p.getWorkspaceId());
                 } else {
                     ((CheckBox) view).setChecked(false);
                 }

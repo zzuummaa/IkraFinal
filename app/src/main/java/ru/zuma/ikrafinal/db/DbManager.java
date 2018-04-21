@@ -309,7 +309,12 @@ public class DbManager {
                 .queryList();
         List<Achievment> achievments = new ArrayList<>();
         for (AchievementDataset achievementDataset : achievementDatasets) {
-            achievments.add(ObjectConverter.createAchievement(achievementDataset));
+            Achievment achievment = ObjectConverter.createAchievement(achievementDataset);
+            if (achievementDataset.getWorkspaceId() != 0) {
+                Workspace workspace = getWorkspace(achievementDataset.getWorkspaceId());
+                achievment.setWorkspaceName(workspace.getName());
+            }
+            achievments.add(achievment);
         }
         return achievments;
     }

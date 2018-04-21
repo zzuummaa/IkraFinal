@@ -24,7 +24,8 @@
     <ListView
         android:id="@+id/lv_workspaces"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
     </ListView>
     <android.support.v7.widget.AppCompatImageButton
@@ -32,6 +33,7 @@
         android:src="@drawable/sign"
         android:maxWidth="50dp"
         android:maxHeight="50dp"
+        android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

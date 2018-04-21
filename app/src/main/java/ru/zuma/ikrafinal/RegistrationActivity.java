@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import ru.zuma.ikrafinal.db.AppDatabase;
 import ru.zuma.ikrafinal.db.DbManager;
+import ru.zuma.ikrafinal.model.AchievementType;
+import ru.zuma.ikrafinal.model.Achievment;
 import ru.zuma.ikrafinal.model.Quest;
 import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
@@ -114,5 +116,18 @@ public class RegistrationActivity extends AppCompatActivity {
         child2Child1.setId(id);
         id = DbManager.getInstance().addQuest(child1Child2, child2Par1.getId());
         child1Child2.setId(id);
+
+        Achievment achievment = new Achievment();
+        achievment.setType(AchievementType.FIRST_BLOOD);
+        DbManager.getInstance().addAchievment(achievment);
+        achievment = new Achievment();
+        achievment.setType(AchievementType.MONEY_MAKER);
+        DbManager.getInstance().addAchievment(achievment);
+        achievment = new Achievment();
+        achievment.setType(AchievementType.THE_KING);
+        DbManager.getInstance().addAchievment(achievment);
+        achievment = new Achievment();
+        achievment.setType(AchievementType.UNSTOPABLE);
+        DbManager.getInstance().addAchievment(achievment);
     }
 }

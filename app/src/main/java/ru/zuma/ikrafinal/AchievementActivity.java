@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.zuma.ikrafinal.db.DbManager;
+import ru.zuma.ikrafinal.model.Achievment;
 
 public class AchievementActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class AchievementActivity extends AppCompatActivity {
         TextView tvCompleted = findViewById(R.id.tv_completed);
         TextView tvAchievement = findViewById(R.id.tv_achievement);
 
-        int achievementId = getIntent().getIntExtra("achievementId", -1);
+        long achievementId = getIntent().getLongExtra("achievementId", -1);
         if (achievementId == -1) {
 
             Toast.makeText(
@@ -30,15 +31,15 @@ public class AchievementActivity extends AppCompatActivity {
             finish();
 
         } else {
-            //String achievementName = DbManager.getInstance().get//...
-            String achievementName = "Повелитель Дейнерис";
+            Achievment achievment = DbManager.getInstance().getAchievement(achievementId);
+            String achievementName = achievment.resolveName();
             //Если ачивка ещё не получена, то описание скрыто. Описание - часть награды
-            String achievementDescription = "Покрыл не только весь мир..";
-            String achievementState = "Получено";
+            String achievementDescription = achievment.isUnlocked() ? achievment.resolveDescription() : "Не раскрыто";
+            String achievementState = achievment.isUnlocked() ? achievment.getWorkspaceName() : "Не раскрыто";
 
             tvAchievement.setText(achievementName);
             tvDescription.setText(achievementDescription);
-            tvCompleted.setText("получено | не получено");
+            tvCompleted.setText(achievementState);
 
         }
     }

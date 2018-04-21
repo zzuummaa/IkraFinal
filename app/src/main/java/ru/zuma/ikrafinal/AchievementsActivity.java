@@ -27,8 +27,7 @@ public class AchievementsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workspaces);
         MainActionBar.addActionBar(this);
 
-        // TODO filling list from DB
-        listAchievements = new ArrayList<>();
+        listAchievements = DbManager.getInstance().getUserAchievements();
 
         lvAchievements = findViewById(R.id.lv_workspaces);
         adapterAchievements = new AchievementAdapter(this, listAchievements);
@@ -39,7 +38,8 @@ public class AchievementsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(AchievementsActivity.this, AchievementActivity.class);
-                intent.putExtra("achievementId", position);
+                Achievment achievment = listAchievements.get(position);
+                intent.putExtra("achievementId", achievment.getId());
                 startActivity(intent);
 
             }

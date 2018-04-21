@@ -14,7 +14,7 @@ import ru.zuma.ikrafinal.db.AppDatabase;
 @Table(database = AppDatabase.class)
 public class AchievementDataset extends BaseModel {
 
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     private long id;
 
     @Column
@@ -22,6 +22,9 @@ public class AchievementDataset extends BaseModel {
 
     @Column
     private String type;
+
+    @Column
+    private boolean isUnlocked;
 
     public AchievementDataset()
     {
@@ -55,5 +58,13 @@ public class AchievementDataset extends BaseModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isUnlocked() {
+        return isUnlocked;
+    }
+
+    public void setUnlocked(boolean unlocked) {
+        isUnlocked = unlocked;
     }
 }

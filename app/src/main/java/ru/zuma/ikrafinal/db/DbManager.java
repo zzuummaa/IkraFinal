@@ -295,6 +295,14 @@ public class DbManager {
         return null;
     }
 
+    public void addAchievment(Achievment achievment) {
+        AchievementDataset achievementDataset = new AchievementDataset();
+        achievementDataset.setWorkspaceId(achievment.getWorkspaceId());
+        achievementDataset.setUnlocked(achievment.isUnlocked());
+        achievementDataset.setType(achievment.getType().toString());
+        achievementDataset.insert();
+    }
+
     public List<Achievment> getUserAchievements() {
         List<AchievementDataset> achievementDatasets = SQLite.select()
                 .from(AchievementDataset.class)
@@ -311,10 +319,38 @@ public class DbManager {
                 .from(AchievementDataset.class)
                 .where(AchievementDataset_Table.id.eq(achievementId))
                 .querySingle();
-        if (achievementDataset != null) {
-            return ObjectConverter.createAchievement(achievementDataset);
+        if (achievementDataset == null) {
+            return null;
         }
-        return null;
+
+        String workspaceName = null;
+        if (achievementDataset.getWorkspaceId() != 0) {
+            WorkspaceDataSet workspaceDataSet = SQLite.select()
+                    .from(WorkspaceDataSet.class)
+                    .where(WorkspaceDataSet_Table.id.eq(achievementDataset.getId()))
+                    .querySingle();
+            if (workspaceDataSet != null) {
+                workspaceName = workspaceDataSet.getName();
+            }
+        }
+
+        Achievment achievement = ObjectConverter.createAchievement(achievementDataset);
+        achievement.setWorkspaceName(workspaceName);
+
+        return achievement;
+    }
+
+    public void updateAchievment(Achievment achievment) {
+        AchievementDataset achievementDataset = SQLite.select()
+                .from(AchievementDataset.class)
+                .where(AchievementDataset_Table.id.eq(achievment.getId()))
+                .querySingle();
+        if (achievementDataset == null) {
+            return;
+        }
+        achievementDataset.setUnlocked(achievment.isUnlocked());
+        achievementDataset.setWorkspaceId(achievment.getWorkspaceId());
+        achievementDataset.update();
     }
 
     private Quest createQuestGraph(final List<Quest> allQuests,

@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context="ru.zuma.ikrafinal.RegistrationActivity"
     android:paddingTop="35dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:orientation="vertical">
 
     <TextView

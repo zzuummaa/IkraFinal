@@ -8,14 +8,14 @@
     android:background="@color/colorPrimaryDark"
     tools:context="ru.zuma.ikrafinal.WorkspacesActivity">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/workspaces"
-        android:layout_gravity="center"
-        android:paddingBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
         android:textSize="60px"/>
-
     <!--<Button-->
         <!--android:id="@+id/bt_add_workspace"-->
         <!--android:layout_width="match_parent"-->
@@ -24,15 +24,25 @@
     <ListView
         android:id="@+id/lv_workspaces"
         android:layout_width="match_parent"
+        android:paddingTop="40dp"
         android:layout_height="match_parent">
 
     </ListView>
+
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/bt_add_workspace"
-        android:src="@drawable/sign"
-        android:maxWidth="50dp"
-        android:maxHeight="50dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="12dp"
+        android:background="@null"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
+        android:scaleType="center"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
+        android:src="@drawable/sign" />
 
 </RelativeLayout>

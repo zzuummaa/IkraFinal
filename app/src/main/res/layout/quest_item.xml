@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:maxWidth="50dp"
-    android:layout_height="20dp"
-    android:layout_width="20dp">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
         android:id="@+id/questContext"
         android:text=">"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="123123123"
         android:id="@+id/questName"/>
     <CheckBox
         android:layout_width="wrap_content"

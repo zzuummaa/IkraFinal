@@ -26,7 +26,7 @@ public class QuestsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quests_list);
+        setContentView(R.layout.activity_quests);
 
         workSpaceId = getIntent().getLongExtra("workspaceId", -1);
         if (workSpaceId == -1) {

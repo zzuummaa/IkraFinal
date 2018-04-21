@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -74,7 +75,7 @@ public class QuestsActivity extends AppCompatActivity {
             }
         });
 
-        Button btQuestsList = (Button) findViewById(R.id.bt_quests_list);
+        ImageButton btQuestsList = (ImageButton ) findViewById(R.id.bt_add_quest);
         btQuestsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

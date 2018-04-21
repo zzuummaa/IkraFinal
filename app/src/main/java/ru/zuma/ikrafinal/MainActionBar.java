@@ -31,7 +31,7 @@ public class MainActionBar {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Drawer.Result[] drawerResult = new Drawer.Result[1];
 

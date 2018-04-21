@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.zuma.ikrafinal.db.DbManager;
+import ru.zuma.ikrafinal.mechanics.QuestMechanics;
 import ru.zuma.ikrafinal.mechanics.QuestWalker;
 import ru.zuma.ikrafinal.model.Quest;
 
@@ -63,10 +64,17 @@ public class QuestsGraphActivity extends AppCompatActivity {
 
                 Log.d(LOG_TAG, "listView item clicked");
 
-                if (view.getId() == R.id.questState) {
+                if (view instanceof CheckBox) {
 
-                    // TODO on complete checkbox clicked
-
+                    Quest quest = listQuests.get(position);
+                    if (quest.isCompleted()) {
+                        return;
+                    }
+                    boolean isCompleted = QuestMechanics.completeQuest(quest);
+                    if (isCompleted) {
+                        ((CheckBox) view).setChecked(true);
+                        DbManager.getInstance().updateQuest(quest);
+                    }
                 } else {
 
                     long childId = listQuests.get(position).getId();

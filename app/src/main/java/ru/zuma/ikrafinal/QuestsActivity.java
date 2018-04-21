@@ -32,6 +32,7 @@ public class QuestsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quests);
+        MainActionBar.addActionBar(this);
 
         workSpaceId = getIntent().getLongExtra("workspaceId", -1);
         if (workSpaceId == -1) {

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import ru.zuma.ikrafinal.db.dataset.AchievementDataset;
+import ru.zuma.ikrafinal.db.dataset.AchievementDataset_Table;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet_Table;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
@@ -16,6 +18,7 @@ import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet_Table;
 import ru.zuma.ikrafinal.db.util.ObjectConverter;
+import ru.zuma.ikrafinal.model.Achievment;
 import ru.zuma.ikrafinal.model.Quest;
 import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
@@ -288,6 +291,28 @@ public class DbManager {
 
         if (!userDataSets.isEmpty()) {
             return ObjectConverter.createUser(userDataSets.get(0));
+        }
+        return null;
+    }
+
+    public List<Achievment> getUserAchievements() {
+        List<AchievementDataset> achievementDatasets = SQLite.select()
+                .from(AchievementDataset.class)
+                .queryList();
+        List<Achievment> achievments = new ArrayList<>();
+        for (AchievementDataset achievementDataset : achievementDatasets) {
+            achievments.add(ObjectConverter.createAchievement(achievementDataset));
+        }
+        return achievments;
+    }
+
+    public Achievment getAchievement(final long achievementId) {
+        AchievementDataset achievementDataset = SQLite.select()
+                .from(AchievementDataset.class)
+                .where(AchievementDataset_Table.id.eq(achievementId))
+                .querySingle();
+        if (achievementDataset != null) {
+            return ObjectConverter.createAchievement(achievementDataset);
         }
         return null;
     }

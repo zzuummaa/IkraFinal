@@ -80,6 +80,7 @@ public class QuestsGraphActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(QuestsGraphActivity.this, QuestsListActivity.class);
                 intent.putExtra("workspaceId", workSpaceId);
+                intent.putExtra("questId", walker.getCurrentNode().getId());
                 startActivityForResult(intent, QUEST_LIST_RESULT);
             }
         });

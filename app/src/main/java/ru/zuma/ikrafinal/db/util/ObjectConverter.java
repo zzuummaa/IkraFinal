@@ -33,6 +33,7 @@ public final class ObjectConverter {
         quest.setDeadline(questDataSet.getDeadline());
         quest.setName(questDataSet.getName());
         quest.setPriority(questDataSet.getPriority());
+        quest.setLinked(questDataSet.isLinked());
         return quest;
     }
 

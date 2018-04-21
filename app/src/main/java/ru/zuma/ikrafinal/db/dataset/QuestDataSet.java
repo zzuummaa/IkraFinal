@@ -45,13 +45,16 @@ public class QuestDataSet extends BaseModel {
     @Column
     private boolean isWorkspaceRoot;
 
+    @Column
+    private boolean isLinked;
+
     public QuestDataSet()
     {
     }
 
     public QuestDataSet(long id, long workspaceId, String name, String description,
                         String tagString, long priority, String deadline, boolean isCompleted,
-                        boolean isWorkspaceRoot) {
+                        boolean isWorkspaceRoot, boolean isLinked) {
         this.id = id;
         this.workspaceId = workspaceId;
         this.name = name;
@@ -61,11 +64,12 @@ public class QuestDataSet extends BaseModel {
         this.deadline = deadline;
         this.isCompleted = isCompleted;
         this.isWorkspaceRoot = isWorkspaceRoot;
+        this.isLinked = isLinked;
     }
 
     public QuestDataSet(long workspaceId, String name, String description, String tagString,
                         long priority, String deadline, boolean isMandatory, boolean isCompleted,
-                        boolean isWorkspaceRoot) {
+                        boolean isWorkspaceRoot, boolean isLinked) {
         this.workspaceId = workspaceId;
         this.name = name;
         this.description = description;
@@ -75,6 +79,7 @@ public class QuestDataSet extends BaseModel {
         this.isMandatory = isMandatory;
         this.isCompleted = isCompleted;
         this.isWorkspaceRoot = isWorkspaceRoot;
+        this.isLinked = isLinked;
     }
 
     public long getId() {
@@ -155,5 +160,13 @@ public class QuestDataSet extends BaseModel {
 
     public void setWorkspaceRoot(boolean workspaceRoot) {
         isWorkspaceRoot = workspaceRoot;
+    }
+
+    public boolean isLinked() {
+        return isLinked;
+    }
+
+    public void setLinked(boolean linked) {
+        isLinked = linked;
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet_Table;
@@ -121,6 +122,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(quest.isLinked());
         return questDataSet.insert();
     }
 
@@ -135,6 +137,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(true);
 
         long questId = questDataSet.insert();
 
@@ -145,6 +148,8 @@ public class DbManager {
             parentDataSet.setChildId(questId);
             parentDataSet.insert();
         }
+
+        quest.setLinked(true);
 
         return questId;
     }
@@ -161,6 +166,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(quest.isLinked());
         questDataSet.update();
     }
 
@@ -172,15 +178,71 @@ public class DbManager {
             parentDataSet.setChildId(quest.getId());
             parentDataSet.insert();
         }
+
+        QuestDataSet questDataSet = SQLite.select()
+                .from(QuestDataSet.class)
+                .where(QuestDataSet_Table.id.eq(quest.getId()))
+                .querySingle();
+        questDataSet.setLinked(true);
+        questDataSet.update();
+
+        quest.setLinked(true);
     }
 
     /**
     public List<Quest> getUnlinkedQuests(long workspaceId) {
-        List<ParentDataSet> parentDataSets = SQLite.select()
+        List<Paren tDataSet> parentDataSets = SQLite.select()
                 .from(ParentDataSet.class)
                 .where(ParentDataSet_Table.workspaceId.eq(workspaceId))
 
     } **/
+
+    public List<Quest> getChildableQuests(long questId, long workspaceId) {
+        Quest root = getQuestsGraph(workspaceId);
+        Quest quest = visitFind(root, questId);
+        if (quest == null) {
+            return new ArrayList<>();
+        }
+        List<Quest> result = new ArrayList<>();
+        visitCollect(quest, result);
+        result.removeAll(quest.getChildren());
+
+        List<QuestDataSet> questDataSets = SQLite.select()
+                .from(QuestDataSet.class)
+                .where(QuestDataSet_Table.workspaceId.eq(workspaceId))
+                .and(QuestDataSet_Table.isLinked.eq(Boolean.FALSE))
+                .queryList();
+        for (QuestDataSet questDataSet : questDataSets) {
+            result.add(ObjectConverter.createQuest(questDataSet));
+        }
+
+        return result;
+    }
+
+    private Quest visitFind(Quest node, long targetId) {
+        if (node.getId() == targetId) {
+            return node;
+        }
+
+        for (Quest quest : node.getChildren()) {
+            Quest res = visitFind(quest, targetId);
+            if (res != null) {
+                return res;
+            }
+        }
+
+        return null;
+    }
+
+    private void visitCollect(Quest quest, List<Quest> collection) {
+        if (quest.getChildren().isEmpty()) {
+            return;
+        }
+        collection.addAll(quest.getChildren());
+        for (Quest child : quest.getChildren()) {
+            visitCollect(child, collection);
+        }
+    }
 
     public void addQuestChildren(Quest quest, long... children) {
         for (long child : children) {
@@ -189,6 +251,13 @@ public class DbManager {
             parentDataSet.setParentId(quest.getId());
             parentDataSet.setChildId(child);
             parentDataSet.insert();
+
+            QuestDataSet questDataSet = SQLite.select()
+                    .from(QuestDataSet.class)
+                    .where(QuestDataSet_Table.id.eq(child))
+                    .querySingle();
+            questDataSet.setLinked(true);
+            questDataSet.update();
         }
     }
 

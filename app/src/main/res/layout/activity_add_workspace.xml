@@ -20,7 +20,7 @@
         android:paddingTop="15dp"
         android:id="@+id/et_workspace_name"
         android:layout_width="match_parent"
-        android:hint="@string/travelling"
+        android:hint="@string/groupName"
 
         android:layout_height="wrap_content" />
 

@@ -56,6 +56,7 @@ public class QuestWalker {
         return true;
     }
 
+
     public void rewalk(Quest newRoot) {
         this.root = newRoot;
         Quest newCurrent = this.root;

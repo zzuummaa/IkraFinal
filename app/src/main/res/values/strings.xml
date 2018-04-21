@@ -23,5 +23,6 @@
     <string name="add_workspace">Добавить проект</string>
     <string name="newQuest">Новый Квест!</string>
     <string name="newWorkspace">Новая Группа!</string>
-    <string name="travelling">Путешествия</string>
+    <string name="groupName">Название группы</string>
+    <string name="questGraph">Иерархия квестов</string>
 </resources>

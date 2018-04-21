@@ -64,28 +64,13 @@ public class QuestsGraphActivity extends AppCompatActivity {
 
                 Log.d(LOG_TAG, "listView item clicked");
 
-                if (view instanceof CheckBox) {
-
-                    Quest quest = listQuests.get(position);
-                    if (quest.isCompleted()) {
-                        return;
-                    }
-                    boolean isCompleted = QuestMechanics.completeQuest(quest);
-                    if (isCompleted) {
-                        ((CheckBox) view).setChecked(true);
-                        DbManager.getInstance().updateQuest(quest);
-                    }
-                } else {
-
-                    long childId = listQuests.get(position).getId();
-                    boolean changed = !walker.isChildLeaf(childId);
-                    if (changed) {
-                        walker.walkToChild(childId);
-                        listQuests.clear();
-                        listQuests.addAll(walker.getCurrentNode().getChildren());
-                        adapterQuests.notifyDataSetChanged();
-                    }
-
+                long childId = listQuests.get(position).getId();
+                boolean changed = !walker.isChildLeaf(childId);
+                if (changed) {
+                    walker.walkToChild(childId);
+                    listQuests.clear();
+                    listQuests.addAll(walker.getCurrentNode().getChildren());
+                    adapterQuests.notifyDataSetChanged();
                 }
 
             }

@@ -34,7 +34,7 @@ public class AchievementActivity extends AppCompatActivity {
             String achievementName = "Повелитель Дейнерис";
             //Если ачивка ещё не получена, то описание скрыто. Описание - часть награды
             String achievementDescription = "Покрыл не только весь мир..";
-            String achievementState = "Получено"
+            String achievementState = "Получено";
 
             tvAchievement.setText(achievementName);
             tvDescription.setText(achievementDescription);

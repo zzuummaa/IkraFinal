@@ -20,4 +20,5 @@
     <string name="settings">Настройки</string>
     <string name="welcome">Добро Пожаловать в kraFinal!</string>
     <string name="questList">Список квестов</string>
+    <string name="add_workspace">Добавить проект</string>
 </resources>

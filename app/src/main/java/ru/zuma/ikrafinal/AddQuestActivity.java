@@ -14,19 +14,18 @@ import ru.zuma.ikrafinal.model.Quest;
 
 public class AddQuestActivity extends AppCompatActivity {
 
-    private int workspaceId;
+    private long workspaceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_quest);
 
-        workspaceId = getIntent().getIntExtra("workspaceId", -1);
-
+        workspaceId = getIntent().getLongExtra("workspaceId", -1);
         if (workspaceId == -1) {
             Toast.makeText(
                 AddQuestActivity.this,
-                "workspaceId not found",
+                getClass().getName() + " workspaceId not found",
                 Toast.LENGTH_SHORT
             ).show();
             setResult(RESULT_CANCELED);
@@ -65,7 +64,7 @@ public class AddQuestActivity extends AppCompatActivity {
         });
     }
 
-    public Quest createQuest(int    workspaceId,
+    public Quest createQuest(long    workspaceId,
                              String name,
                              String description,
                              String priority,
@@ -77,7 +76,7 @@ public class AddQuestActivity extends AppCompatActivity {
 
         Long longPriority;
         try {
-            longPriority = Long.getLong(priority);
+            longPriority = Long.valueOf(priority);
         } catch (Exception e) {
             return null;
         }

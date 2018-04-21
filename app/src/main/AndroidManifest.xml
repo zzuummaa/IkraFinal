@@ -33,7 +33,8 @@
             android:name=".AchievementActivity"
             android:label="@string/achievement" />
         <activity android:name=".AddWorkspaceActivity" />
-        <activity android:name=".AddQuestActivity"></activity>
+        <activity android:name=".AddQuestActivity" />
+        <activity android:name=".QuestsListActivity"></activity>
     </application>
 
 </manifest>

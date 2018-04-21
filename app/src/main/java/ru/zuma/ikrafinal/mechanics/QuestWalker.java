@@ -59,12 +59,19 @@ public class QuestWalker {
     public void rewalk(Quest newRoot) {
         this.root = newRoot;
         Quest newCurrent = this.root;
-        while (!walkStack.isEmpty()) {
-            Quest step = walkStack.pollLast();
+        int count = 0;
+        while (count != walkStack.size()-1) {
+            Quest step = walkStack.peekLast();
             for (Quest child : newCurrent.getChildren()) {
                 if (child.getId() == step.getId()) {
                     newCurrent = child;
                 }
+            }
+            count++;
+        }
+        for (Quest child : newCurrent.getChildren()) {
+            if (child.getId() == currentNode.getId()) {
+                newCurrent = child;
             }
         }
         this.currentNode = newCurrent;

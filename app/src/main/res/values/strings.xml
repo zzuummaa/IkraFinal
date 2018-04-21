@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">IkraFinal</string>
+    <string name="app_name">CaviQuest</string>
     <string name="registration">Регистрация</string>
     <string name="quests">Квесты</string>
     <string name="workspaces">Группы</string>
     <string name="achievements">Достижения</string>
     <string name="achievement">Достижение</string>
     <string name="description">Описание:</string>
-    <string name="status">Статус</string>
+    <string name="status">Статус:</string>
     <string name="name">Название:</string>
     <string name="priority">Приоритет</string>
     <string name="deadline">Время окончания</string>
@@ -18,7 +18,7 @@
     <string name="today">Сегодня</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
-    <string name="welcome">Добро Пожаловать в ikraFinal!</string>
+    <string name="welcome">Добро Пожаловать в CaviQuest!</string>
     <string name="questList">Список квестов</string>
     <string name="add_workspace">Добавить проект</string>
     <string name="newQuest">Новый Квест!</string>

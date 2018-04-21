@@ -59,63 +59,33 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void create() {
 //        Workspace workspace = new Workspace();
-//        workspace.setName("First project!");
+//        workspace.setName("Кухня");
 //        workspace = DbManager.getInstance().addWorkspace(workspace);
 //        long workspaceId = workspace.getId();
 //
 //        Quest parent1 = new Quest(false);
-//        parent1.setName("Parent 1");
+//        parent1.setName("Сделать коктейль");
 //        parent1.setWorkspaceId(workspaceId);
-//        Quest parent2 = new Quest(false);
-//        parent2.setName("Parent 2");
-//        parent2.setWorkspaceId(workspaceId);
-//        Quest parent3 = new Quest(false);
-//        parent3.setName("Parent 3");
-//        parent3.setWorkspaceId(workspaceId);
 //
 //        Quest child1Par1 = new Quest(false);
-//        child1Par1.setName("Child 1 of Parent 1 and Parent 2");
+//        child1Par1.setName("Купить яишницу");
 //        child1Par1.setWorkspaceId(workspaceId);
 //        Quest child2Par1 = new Quest(false);
-//        child2Par1.setName("Child 2 of Paren 1");
+//        child2Par1.setName("Купить мороженое");
 //        child2Par1.setWorkspaceId(workspaceId);
 //
-//        Quest child1Child1 = new Quest(false);
-//        child1Child1.setName("Child 1 of Child 1");
-//        child1Child1.setWorkspaceId(workspaceId);
-//        Quest child2Child1 = new Quest(false);
-//        child2Child1.setName("Child 2 of Child 1");
-//        child2Child1.setWorkspaceId(workspaceId);
-//
-//        Quest child1Child2 = new Quest(false);
-//        child1Child2.setName("Child 1 of Child 2");
-//        child1Child2.setWorkspaceId(workspaceId);
 //
 //        parent1.getChildren().add(child1Par1);
-//        parent2.getChildren().add(child1Par1);
+//        parent1.getChildren().add(child2Par1);
 //
-//        child1Par1.getChildren().add(child1Child1);
-//        child1Par1.getChildren().add(child2Child1);
-//        child2Par1.getChildren().add(child1Child2);
 //
 //        long id = DbManager.getInstance().addQuest(parent1, workspace.getRootQuestId());
 //        parent1.setId(id);
-//        id = DbManager.getInstance().addQuest(parent2, workspace.getRootQuestId());
-//        parent2.setId(id);
-//        id = DbManager.getInstance().addQuest(parent3, workspace.getRootQuestId());
-//        parent3.setId(id);
 //
-//        id = DbManager.getInstance().addQuest(child1Par1, parent1.getId(), parent2.getId());
+//        id = DbManager.getInstance().addQuest(child1Par1, parent1.getId());
 //        child1Par1.setId(id);
 //        id = DbManager.getInstance().addQuest(child2Par1, parent1.getId());
 //        child2Par1.setId(id);
-//
-//        id = DbManager.getInstance().addQuest(child1Child1, child1Par1.getId());
-//        child1Child1.setId(id);
-//        id = DbManager.getInstance().addQuest(child2Child1, child1Par1.getId());
-//        child2Child1.setId(id);
-//        id = DbManager.getInstance().addQuest(child1Child2, child2Par1.getId());
-//        child1Child2.setId(id);
 
         Achievment achievment = new Achievment();
         achievment.setType(AchievementType.FIRST_BLOOD);

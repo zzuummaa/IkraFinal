@@ -214,6 +214,7 @@ public class DbManager {
                 .from(QuestDataSet.class)
                 .where(QuestDataSet_Table.workspaceId.eq(workspaceId))
                 .and(QuestDataSet_Table.isLinked.eq(Boolean.FALSE))
+                .and(QuestDataSet_Table.isWorkspaceRoot.eq(Boolean.FALSE))
                 .queryList();
         for (QuestDataSet questDataSet : questDataSets) {
             result.add(ObjectConverter.createQuest(questDataSet));

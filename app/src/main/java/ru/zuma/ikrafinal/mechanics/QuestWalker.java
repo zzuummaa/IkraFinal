@@ -58,6 +58,12 @@ public class QuestWalker {
 
 
     public void rewalk(Quest newRoot) {
+        if (walkStack.size() == 0) {
+            this.root = newRoot;
+            this.currentNode = this.root;
+            return;
+        }
+
         this.root = newRoot;
         Quest newCurrent = this.root;
         int count = 0;

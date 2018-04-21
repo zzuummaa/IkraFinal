@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="24dp"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/questContext"
+        android:text=">"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/questContext"
+        android:id="@+id/questName"/>
+    <CheckBox
+        android:width="24dp"
+        android:height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/questName"
+        android:id="@+id/questState"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/questState"
+        android:id="@+id/questBrief"/>
+
+</RelativeLayout>
+

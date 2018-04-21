@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class WorkspacesActivity extends AppCompatActivity {
             }
         });
 
-        Button btAddWorkspace = (Button) findViewById(R.id.bt_add_workspace);
+        ImageButton btAddWorkspace = (ImageButton) findViewById(R.id.bt_add_workspace);
         btAddWorkspace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

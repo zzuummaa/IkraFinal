@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,13 +63,21 @@ public class QuestsGraphActivity extends AppCompatActivity {
 
                 Log.d(LOG_TAG, "listView item clicked");
 
-                long childId = listQuests.get(position).getId();
-                boolean changed = !walker.isChildLeaf(childId);
-                if (changed) {
-                    walker.walkToChild(childId);
-                    listQuests.clear();
-                    listQuests.addAll(walker.getCurrentNode().getChildren());
-                    adapterQuests.notifyDataSetChanged();
+                if (view.getId() == R.id.questState) {
+
+                    // TODO on complete checkbox clicked
+
+                } else {
+
+                    long childId = listQuests.get(position).getId();
+                    boolean changed = !walker.isChildLeaf(childId);
+                    if (changed) {
+                        walker.walkToChild(childId);
+                        listQuests.clear();
+                        listQuests.addAll(walker.getCurrentNode().getChildren());
+                        adapterQuests.notifyDataSetChanged();
+                    }
+
                 }
 
             }

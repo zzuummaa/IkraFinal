@@ -20,6 +20,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+
         Button button = findViewById(R.id.bt_register);
         final EditText nameEdit = findViewById(R.id.et_login);
         final EditText passEdit = findViewById(R.id.et_pass);
@@ -59,6 +60,7 @@ public class RegistrationActivity extends AppCompatActivity {
         workspace.setName("First project!");
         long workspaceId = DbManager.getInstance().addWorkspace(workspace);
         workspace.setId(workspaceId);
+
 
         Quest parent1 = new Quest();
         parent1.setName("Parent 1");

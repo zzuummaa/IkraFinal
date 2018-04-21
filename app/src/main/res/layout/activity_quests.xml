@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="30dp"
+    android:paddingTop="35dp"
     android:background="@color/colorPrimaryDark"
     tools:context="ru.zuma.ikrafinal.QuestsActivity">
 
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/questList"
         android:layout_gravity="center"
+        android:paddingBottom="15dp"
         android:textSize="60px"/>
     <ListView
         android:id="@+id/lv_quests"

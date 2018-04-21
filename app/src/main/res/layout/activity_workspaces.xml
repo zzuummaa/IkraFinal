@@ -4,13 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="35dp"
+    android:background="@color/colorPrimaryDark"
     tools:context="ru.zuma.ikrafinal.WorkspacesActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workspaces"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:textSize="60px"/>
 
     <ListView
         android:id="@+id/lv_workspaces"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="match_parent">
     </ListView>
 
 </LinearLayout>

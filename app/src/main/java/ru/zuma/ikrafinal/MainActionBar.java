@@ -15,12 +15,13 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 public class MainActionBar {
     //private Drawer.Result drawerResult = null;
 
+    //public static void setDisplayHomeActionBar()
     public static void addActionBar(AppCompatActivity activity) {
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 

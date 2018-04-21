@@ -22,6 +22,7 @@ public class AchievementsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspaces);
+        MainActionBar.addActionBar(this);
 
         listAchievements = new ArrayList<>();
         listAchievements.add("Достижение 1");

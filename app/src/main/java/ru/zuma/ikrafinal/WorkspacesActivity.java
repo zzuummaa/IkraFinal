@@ -24,6 +24,7 @@ public class WorkspacesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workspaces);
+        MainActionBar.addActionBar(this);
 
         listWorkspaces = DbManager.getInstance().getWorkspaces();
 

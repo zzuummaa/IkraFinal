@@ -71,7 +71,7 @@ public class AddQuestActivity extends AppCompatActivity {
                              String priority,
                              String deadline) {
 
-        if (name.equals("")) {
+        if (name.trim().equals("")) {
             return null;
         }
 
@@ -79,7 +79,7 @@ public class AddQuestActivity extends AppCompatActivity {
         try {
             longPriority = Long.valueOf(priority);
         } catch (Exception e) {
-            return null;
+            longPriority = new Long(0);
         }
 
         Quest quest = new Quest(false);

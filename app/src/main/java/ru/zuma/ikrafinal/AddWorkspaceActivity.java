@@ -27,7 +27,7 @@ public class AddWorkspaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (etName.getText().equals("")) {
+                if (etName.getText().toString().equals("")) {
 
                     Toast.makeText(
                         AddWorkspaceActivity.this,

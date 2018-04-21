@@ -5,4 +5,8 @@ package ru.zuma.ikrafinal.model;
  */
 
 public enum AchievmentType {
+    FIRST_BLOOD,
+    UNSTOPABLE,
+    MONEY_MAKER,
+    THE_KING
 }

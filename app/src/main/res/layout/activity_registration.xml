@@ -19,6 +19,7 @@
         android:id="@+id/et_login"
         android:hint="@string/login"
         android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -26,6 +27,7 @@
         android:id="@+id/et_pass"
         android:hint="@string/password"
         android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

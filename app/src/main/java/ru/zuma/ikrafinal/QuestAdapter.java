@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -51,15 +52,20 @@ public class QuestAdapter extends BaseAdapter{
         // используем созданные, но не используемые view
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            view = lInflater.inflate(R.layout.quest_item, parent, false);
         }
 
-        Quest p = getQuest(position);
+        Quest p = getQuest(position);//Govno
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
-        ((TextView) view.findViewById(android.R.id.text1)).setText(p.getName());
-
+        ((TextView) view.findViewById(R.id.questName)).setText(p.getName());
+        ((TextView) view.findViewById(R.id.questBrief)).setText(p.getDescription());
+        ((CheckBox) view.findViewById(R.id.questState)).setChecked(p.isCompleted());
+        if (p.getChildren().size()>0)
+            ((TextView) view.findViewById(R.id.questContext)).setText("> ");
+        else
+            ((TextView) view.findViewById(R.id.questContext)).setText("- ");
         return view;
     }
 

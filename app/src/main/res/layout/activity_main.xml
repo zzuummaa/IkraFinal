@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/bt_achievements"
-        android:text="@string/workspaces"
+        android:text="@string/achievements"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

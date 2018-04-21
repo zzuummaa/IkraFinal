@@ -62,9 +62,9 @@ public class WorkspacesActivity extends AppCompatActivity {
             if (workspaceId != -1) {
 
                 // TODO get single workspace from db by workspaceId
-                List<Workspace> workspaces = DbManager.getInstance().getWorkspaces();
-                listWorkspaces.clear();
-                listWorkspaces.addAll(workspaces);
+                //List<Workspace> workspaces = DbManager.getInstance().getWorkspaces();
+                Workspace workspace = DbManager.getInstance().getWorkspace(workspaceId);
+                listWorkspaces.add(workspace);
                 adapterWorkspaces.notifyDataSetChanged();
 
             }

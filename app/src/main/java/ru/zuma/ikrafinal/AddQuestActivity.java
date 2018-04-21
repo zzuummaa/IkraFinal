@@ -81,7 +81,7 @@ public class AddQuestActivity extends AppCompatActivity {
             return null;
         }
 
-        Quest quest = new Quest();
+        Quest quest = new Quest(false);
         quest.setName(name);
         quest.setWorkspaceId(workspaceId);
         quest.setDescription(description);

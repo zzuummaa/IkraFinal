@@ -278,6 +278,9 @@ public class DbManager {
         }
 
         for (Quest quest : allQuests) {
+            if (quest.isWorkspaceRoot()) {
+                continue;
+            }
             List<Long> children = parentRelations.get(quest.getId());
             if (children != null) {
                 for (Long child : children) {

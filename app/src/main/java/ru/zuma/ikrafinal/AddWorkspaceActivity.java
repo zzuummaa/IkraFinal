@@ -38,10 +38,10 @@ public class AddWorkspaceActivity extends AppCompatActivity {
 
                     Workspace workspace = new Workspace();
                     workspace.setName(etName.getText().toString());
-                    long workspaceId = DbManager.getInstance().addWorkspace(workspace);
+                    workspace = DbManager.getInstance().addWorkspace(workspace);
 
                     Intent intent = new Intent();
-                    intent.putExtra("workspaceId", workspaceId);
+                    intent.putExtra("workspaceId", workspace.getId());
                     setResult(RESULT_OK, intent);
                     finish();
 

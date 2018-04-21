@@ -12,10 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import ru.zuma.ikrafinal.db.DbManager;
+import ru.zuma.ikrafinal.model.Achievment;
+
 public class AchievementsActivity extends AppCompatActivity {
 
-    List<String> listAchievements;
-    ArrayAdapter<String> adapterAchievements;
+    List<Achievment> listAchievements;
+    AchievementAdapter adapterAchievements;
     ListView lvAchievements;
 
     @Override
@@ -24,13 +27,11 @@ public class AchievementsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workspaces);
         MainActionBar.addActionBar(this);
 
+        // TODO filling list from DB
         listAchievements = new ArrayList<>();
-        listAchievements.add("Достижение 1");
-        listAchievements.add("Достижение 2");
 
         lvAchievements = findViewById(R.id.lv_workspaces);
-        adapterAchievements = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, listAchievements);
+        adapterAchievements = new AchievementAdapter(this, listAchievements);
 
         lvAchievements.setAdapter(adapterAchievements);
         lvAchievements.setOnItemClickListener(new AdapterView.OnItemClickListener() {

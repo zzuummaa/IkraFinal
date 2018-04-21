@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class QuestsListActivity extends AppCompatActivity {
 
     private boolean isQuestsChanged = false;
     private long workSpaceId;
+    private long questId;
     private List<Quest> listQuests;
     private QuestAdapter adapterQuests;
     private ListView lvQuests;
@@ -29,18 +31,19 @@ public class QuestsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quests_list);
 
         workSpaceId = getIntent().getLongExtra("workspaceId", -1);
-        if (workSpaceId == -1) {
+        questId = getIntent().getLongExtra("questId", -1);
+        if (workSpaceId == -1 || questId == -1) {
 
             Toast.makeText(
                 QuestsListActivity.this,
-                getClass().getSimpleName() + " workspaceId not found",
+                getClass().getSimpleName() + " workspaceId or questId not found",
                 Toast.LENGTH_SHORT
             ).show();
             finish();
 
         }
 
-        listQuests = DbManager.getInstance().getQuestsList(workSpaceId);
+        listQuests = DbManager.getInstance().getChildableQuests(questId, workSpaceId);
 
         adapterQuests = new QuestAdapter(this, listQuests);
 
@@ -54,6 +57,17 @@ public class QuestsListActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuestsListActivity.this, AddQuestActivity.class);
                 intent.putExtra("workspaceId", workSpaceId);
                 startActivityForResult(intent, ADD_QUEST_RESULT);
+            }
+        });
+
+        lvQuests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Quest quest = listQuests.get(i);
+                Intent intent = new Intent(QuestsListActivity.this, QuestsGraphActivity.class);
+                intent.putExtra("questId", quest.getId());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -79,9 +93,6 @@ public class QuestsListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra("isQuestsChanged", isQuestsChanged);
-        setResult(RESULT_OK, intent);
         finish();
     }
 }

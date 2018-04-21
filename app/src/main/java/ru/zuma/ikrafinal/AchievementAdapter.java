@@ -57,10 +57,11 @@ public class AchievementAdapter extends BaseAdapter {
 
         Achievment p = getQuest(position);
 
+        String name = p.getWorkspaceName() ==  null ? "Не раскрыто" : p.getWorkspaceName();
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
-        ((TextView) view.findViewById(R.id.achievement_name)).setText( String.valueOf(p.getId()) );
-        ((TextView) view.findViewById(R.id.achievement_workspace)).setText( String.valueOf(p.getWorkspaceId()) );
+        ((TextView) view.findViewById(R.id.achievement_name)).setText( String.valueOf(p.resolveName()) );
+        ((TextView) view.findViewById(R.id.achievement_workspace)).setText( name );
 
         return view;
     }

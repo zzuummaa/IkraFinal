@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
+import ru.zuma.ikrafinal.db.dataset.AchievementDataset;
+import ru.zuma.ikrafinal.db.dataset.AchievementDataset_Table;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet;
 import ru.zuma.ikrafinal.db.dataset.ParentDataSet_Table;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
@@ -15,6 +18,7 @@ import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet_Table;
 import ru.zuma.ikrafinal.db.util.ObjectConverter;
+import ru.zuma.ikrafinal.model.Achievment;
 import ru.zuma.ikrafinal.model.Quest;
 import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
@@ -121,6 +125,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(quest.isLinked());
         return questDataSet.insert();
     }
 
@@ -135,6 +140,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(true);
 
         long questId = questDataSet.insert();
 
@@ -145,6 +151,8 @@ public class DbManager {
             parentDataSet.setChildId(questId);
             parentDataSet.insert();
         }
+
+        quest.setLinked(true);
 
         return questId;
     }
@@ -161,6 +169,7 @@ public class DbManager {
         questDataSet.setTagString("");
         questDataSet.setWorkspaceId(quest.getWorkspaceId());
         questDataSet.setWorkspaceRoot(quest.isWorkspaceRoot());
+        questDataSet.setLinked(quest.isLinked());
         questDataSet.update();
     }
 
@@ -172,6 +181,70 @@ public class DbManager {
             parentDataSet.setChildId(quest.getId());
             parentDataSet.insert();
         }
+
+        QuestDataSet questDataSet = SQLite.select()
+                .from(QuestDataSet.class)
+                .where(QuestDataSet_Table.id.eq(quest.getId()))
+                .querySingle();
+        questDataSet.setLinked(true);
+        questDataSet.update();
+
+        quest.setLinked(true);
+    }
+
+    /**
+    public List<Quest> getUnlinkedQuests(long workspaceId) {
+        List<Paren tDataSet> parentDataSets = SQLite.select()
+                .from(ParentDataSet.class)
+                .where(ParentDataSet_Table.workspaceId.eq(workspaceId))
+
+    } **/
+
+    public List<Quest> getChildableQuests(long questId, long workspaceId) {
+        Quest root = getQuestsGraph(workspaceId);
+        Quest quest = visitFind(root, questId);
+        if (quest == null) {
+            return new ArrayList<>();
+        }
+        List<Quest> result = new ArrayList<>();
+        visitCollect(quest, result);
+        result.removeAll(quest.getChildren());
+
+        List<QuestDataSet> questDataSets = SQLite.select()
+                .from(QuestDataSet.class)
+                .where(QuestDataSet_Table.workspaceId.eq(workspaceId))
+                .and(QuestDataSet_Table.isLinked.eq(Boolean.FALSE))
+                .queryList();
+        for (QuestDataSet questDataSet : questDataSets) {
+            result.add(ObjectConverter.createQuest(questDataSet));
+        }
+
+        return result;
+    }
+
+    private Quest visitFind(Quest node, long targetId) {
+        if (node.getId() == targetId) {
+            return node;
+        }
+
+        for (Quest quest : node.getChildren()) {
+            Quest res = visitFind(quest, targetId);
+            if (res != null) {
+                return res;
+            }
+        }
+
+        return null;
+    }
+
+    private void visitCollect(Quest quest, List<Quest> collection) {
+        if (quest.getChildren().isEmpty()) {
+            return;
+        }
+        collection.addAll(quest.getChildren());
+        for (Quest child : quest.getChildren()) {
+            visitCollect(child, collection);
+        }
     }
 
     public void addQuestChildren(Quest quest, long... children) {
@@ -181,6 +254,13 @@ public class DbManager {
             parentDataSet.setParentId(quest.getId());
             parentDataSet.setChildId(child);
             parentDataSet.insert();
+
+            QuestDataSet questDataSet = SQLite.select()
+                    .from(QuestDataSet.class)
+                    .where(QuestDataSet_Table.id.eq(child))
+                    .querySingle();
+            questDataSet.setLinked(true);
+            questDataSet.update();
         }
     }
 
@@ -213,6 +293,69 @@ public class DbManager {
             return ObjectConverter.createUser(userDataSets.get(0));
         }
         return null;
+    }
+
+    public void addAchievment(Achievment achievment) {
+        AchievementDataset achievementDataset = new AchievementDataset();
+        achievementDataset.setWorkspaceId(achievment.getWorkspaceId());
+        achievementDataset.setUnlocked(achievment.isUnlocked());
+        achievementDataset.setType(achievment.getType().toString());
+        achievementDataset.insert();
+    }
+
+    public List<Achievment> getUserAchievements() {
+        List<AchievementDataset> achievementDatasets = SQLite.select()
+                .from(AchievementDataset.class)
+                .queryList();
+        List<Achievment> achievments = new ArrayList<>();
+        for (AchievementDataset achievementDataset : achievementDatasets) {
+            Achievment achievment = ObjectConverter.createAchievement(achievementDataset);
+            if (achievementDataset.getWorkspaceId() != 0) {
+                Workspace workspace = getWorkspace(achievementDataset.getWorkspaceId());
+                achievment.setWorkspaceName(workspace.getName());
+            }
+            achievments.add(achievment);
+        }
+        return achievments;
+    }
+
+    public Achievment getAchievement(final long achievementId) {
+        AchievementDataset achievementDataset = SQLite.select()
+                .from(AchievementDataset.class)
+                .where(AchievementDataset_Table.id.eq(achievementId))
+                .querySingle();
+        if (achievementDataset == null) {
+            return null;
+        }
+
+        String workspaceName = null;
+        if (achievementDataset.getWorkspaceId() != 0) {
+            WorkspaceDataSet workspaceDataSet = SQLite.select()
+                    .from(WorkspaceDataSet.class)
+                    .where(WorkspaceDataSet_Table.id.eq(achievementDataset.getId()))
+                    .querySingle();
+            if (workspaceDataSet != null) {
+                workspaceName = workspaceDataSet.getName();
+            }
+        }
+
+        Achievment achievement = ObjectConverter.createAchievement(achievementDataset);
+        achievement.setWorkspaceName(workspaceName);
+
+        return achievement;
+    }
+
+    public void updateAchievment(Achievment achievment) {
+        AchievementDataset achievementDataset = SQLite.select()
+                .from(AchievementDataset.class)
+                .where(AchievementDataset_Table.id.eq(achievment.getId()))
+                .querySingle();
+        if (achievementDataset == null) {
+            return;
+        }
+        achievementDataset.setUnlocked(achievment.isUnlocked());
+        achievementDataset.setWorkspaceId(achievment.getWorkspaceId());
+        achievementDataset.update();
     }
 
     private Quest createQuestGraph(final List<Quest> allQuests,

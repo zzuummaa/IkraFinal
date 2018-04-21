@@ -1,8 +1,11 @@
 package ru.zuma.ikrafinal.db.util;
 
+import ru.zuma.ikrafinal.db.dataset.AchievementDataset;
 import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
 import ru.zuma.ikrafinal.db.dataset.UserDataSet;
 import ru.zuma.ikrafinal.db.dataset.WorkspaceDataSet;
+import ru.zuma.ikrafinal.model.Achievment;
+import ru.zuma.ikrafinal.model.AchievementType;
 import ru.zuma.ikrafinal.model.Quest;
 import ru.zuma.ikrafinal.model.User;
 import ru.zuma.ikrafinal.model.Workspace;
@@ -33,6 +36,7 @@ public final class ObjectConverter {
         quest.setDeadline(questDataSet.getDeadline());
         quest.setName(questDataSet.getName());
         quest.setPriority(questDataSet.getPriority());
+        quest.setLinked(questDataSet.isLinked());
         return quest;
     }
 
@@ -42,5 +46,14 @@ public final class ObjectConverter {
         user.setName(userDataSet.getName());
         user.setPassword(userDataSet.getPassword());
         return user;
+    }
+
+    public static Achievment createAchievement(AchievementDataset achievementDataset) {
+        Achievment achievment = new Achievment();
+        achievment.setId(achievementDataset.getId());
+        achievment.setType(AchievementType.valueOf(achievementDataset.getType()));
+        achievment.setWorkspaceId(achievementDataset.getWorkspaceId());
+        achievment.setUnlocked(achievementDataset.isUnlocked());
+        return achievment;
     }
 }

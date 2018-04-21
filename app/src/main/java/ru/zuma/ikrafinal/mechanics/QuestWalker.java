@@ -1,7 +1,11 @@
 package ru.zuma.ikrafinal.mechanics;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Queue;
 import java.util.Stack;
 
+import ru.zuma.ikrafinal.db.dataset.QuestDataSet;
 import ru.zuma.ikrafinal.model.Quest;
 
 /**
@@ -13,7 +17,7 @@ public class QuestWalker {
     private Quest root;
 
     private Quest currentNode;
-    private Stack<Quest> walkStack = new Stack<>();
+    private Deque<Quest> walkStack = new ArrayDeque<>();
 
     public QuestWalker(Quest root) {
         this.root = root;
@@ -27,7 +31,7 @@ public class QuestWalker {
     public boolean walkToChild(final long childId) {
         for (Quest child : currentNode.getChildren()) {
             if (child.getId() == childId) {
-                walkStack.push(currentNode);
+                walkStack.addFirst(currentNode);
                 currentNode = child;
                 return true;
             }
@@ -39,7 +43,7 @@ public class QuestWalker {
         if (walkStack.isEmpty()) {
             return false;
         }
-        currentNode = walkStack.pop();
+        currentNode = walkStack.pollFirst();
         return true;
     }
 
@@ -50,5 +54,26 @@ public class QuestWalker {
             }
         }
         return true;
+    }
+
+    public void rewalk(Quest newRoot) {
+        this.root = newRoot;
+        Quest newCurrent = this.root;
+        int count = 0;
+        while (count != walkStack.size()-1) {
+            Quest step = walkStack.peekLast();
+            for (Quest child : newCurrent.getChildren()) {
+                if (child.getId() == step.getId()) {
+                    newCurrent = child;
+                }
+            }
+            count++;
+        }
+        for (Quest child : newCurrent.getChildren()) {
+            if (child.getId() == currentNode.getId()) {
+                newCurrent = child;
+            }
+        }
+        this.currentNode = newCurrent;
     }
 }

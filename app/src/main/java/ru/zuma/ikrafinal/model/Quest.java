@@ -19,18 +19,20 @@ public class Quest {
     private boolean isCompleted = false;
     private boolean isMandatory = true;
     private boolean isWorkspaceRoot;
+    private boolean isLinked = false;
     private List<Quest> children;
 
     public Quest(boolean isWorkspaceRoot)
     {
         this.isWorkspaceRoot = isWorkspaceRoot;
+        this.isLinked = isWorkspaceRoot;
         children = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
     public Quest(long id, long workspaceId, String name, String description, List<String> tags,
                  long priority, String deadline, boolean isCompleted, boolean isMandatory,
-                 boolean isWorkspaceRoot, List<Quest> children) {
+                 boolean isWorkspaceRoot, boolean isLinked, List<Quest> children) {
         this.id = id;
         this.workspaceId = workspaceId;
         this.name = name;
@@ -41,6 +43,7 @@ public class Quest {
         this.isCompleted = isCompleted;
         this.isMandatory = isMandatory;
         this.isWorkspaceRoot = isWorkspaceRoot;
+        this.isLinked = isLinked;
         this.children = new ArrayList<>(children);
     }
 
@@ -114,6 +117,14 @@ public class Quest {
 
     public boolean isWorkspaceRoot() {
         return isWorkspaceRoot;
+    }
+
+    public boolean isLinked() {
+        return isLinked;
+    }
+
+    public void setLinked(boolean linked) {
+        isLinked = linked;
     }
 
     public List<Quest> getChildren() {

@@ -8,16 +8,20 @@ public class Achievment {
 
     private long id;
     private long workspaceId;
-    private AchievmentType type;
+    private String workspaceName;
+    private AchievementType type;
+    private boolean isUnlocked;
 
     public Achievment()
     {
     }
 
-    public Achievment(long id, long workspaceId, AchievmentType type) {
+    public Achievment(long id, long workspaceId, String workspaceName, AchievementType type,
+                      boolean isUnlocked) {
         this.id = id;
         this.workspaceId = workspaceId;
         this.type = type;
+        this.isUnlocked = isUnlocked;
     }
 
     public long getId() {
@@ -36,13 +40,47 @@ public class Achievment {
         this.workspaceId = workspaceId;
     }
 
-    public AchievmentType getType() {
+    public AchievementType getType() {
         return type;
     }
 
-    public void setType(AchievmentType type) {
+    public void setType(AchievementType type) {
         this.type = type;
     }
 
+    public String getWorkspaceName() {
+        return workspaceName;
+    }
 
+    public void setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
+    }
+
+    public boolean isUnlocked() {
+        return isUnlocked;
+    }
+
+    public void setUnlocked(boolean unlocked) {
+        isUnlocked = unlocked;
+    }
+
+    public String resolveName() {
+        switch (type) {
+            case THE_KING: return "Король";
+            case UNSTOPABLE: return "Неостанавливаемый";
+            case MONEY_MAKER: return "Деньгоделатель";
+            case FIRST_BLOOD: return "Первая кровь";
+        }
+        return null;
+    }
+
+    public String resolveDescription() {
+        switch (type) {
+            case THE_KING: return "Король";
+            case UNSTOPABLE: return "Неостанавливаемый";
+            case MONEY_MAKER: return "Деньгоделатель";
+            case FIRST_BLOOD: return "Первая кровь";
+        }
+        return null;
+    }
 }

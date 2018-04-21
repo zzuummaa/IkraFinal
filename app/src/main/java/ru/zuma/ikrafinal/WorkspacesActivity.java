@@ -36,7 +36,7 @@ public class WorkspacesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(WorkspacesActivity.this, QuestsActivity.class);
+                Intent intent = new Intent(WorkspacesActivity.this, QuestsGraphActivity.class);
                 Workspace workspace = listWorkspaces.get(position);
                 intent.putExtra("workspaceId", workspace.getId());
                 startActivity(intent);

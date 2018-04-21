@@ -17,8 +17,8 @@ import ru.zuma.ikrafinal.db.DbManager;
 import ru.zuma.ikrafinal.mechanics.QuestWalker;
 import ru.zuma.ikrafinal.model.Quest;
 
-public class QuestsActivity extends AppCompatActivity {
-    private final static String LOG_TAG = QuestsActivity.class.getSimpleName();
+public class QuestsGraphActivity extends AppCompatActivity {
+    private final static String LOG_TAG = QuestsGraphActivity.class.getSimpleName();
     private final static int QUEST_LIST_RESULT = 0;
 
     private long workSpaceId;
@@ -38,7 +38,7 @@ public class QuestsActivity extends AppCompatActivity {
         if (workSpaceId == -1) {
 
             Toast.makeText(
-                QuestsActivity.this,
+                QuestsGraphActivity.this,
                 "workspaceId not found",
                 Toast.LENGTH_SHORT
             ).show();
@@ -78,7 +78,7 @@ public class QuestsActivity extends AppCompatActivity {
         btQuestsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuestsActivity.this, QuestsListActivity.class);
+                Intent intent = new Intent(QuestsGraphActivity.this, QuestsListActivity.class);
                 intent.putExtra("workspaceId", workSpaceId);
                 startActivityForResult(intent, QUEST_LIST_RESULT);
             }
@@ -89,16 +89,16 @@ public class QuestsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QUEST_LIST_RESULT && resultCode == RESULT_OK) {
 
-            boolean isQuestsChanged = data.getBooleanExtra("isQuestsChanged", false);
-            if (isQuestsChanged) {
+            long questId = data.getLongExtra("questId", -1);
+            if (questId != -1) {
+                DbManager.getInstance().addQuestChildren(walker.getCurrentNode(), questId);
+                final Quest rootQuest = DbManager.getInstance().getQuestsGraph(workSpaceId);
+                walker.rewalk(rootQuest);
 
-                List<Quest> quests = DbManager.getInstance().getQuestsList(workSpaceId);
                 listQuests.clear();
-                listQuests.addAll(quests);
+                listQuests.addAll(walker.getCurrentNode().getChildren());
                 adapterQuests.notifyDataSetChanged();
-
             }
-
         }
     }
 

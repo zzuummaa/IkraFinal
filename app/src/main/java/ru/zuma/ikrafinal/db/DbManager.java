@@ -174,6 +174,14 @@ public class DbManager {
         }
     }
 
+    /**
+    public List<Quest> getUnlinkedQuests(long workspaceId) {
+        List<ParentDataSet> parentDataSets = SQLite.select()
+                .from(ParentDataSet.class)
+                .where(ParentDataSet_Table.workspaceId.eq(workspaceId))
+
+    } **/
+
     public void addQuestChildren(Quest quest, long... children) {
         for (long child : children) {
             ParentDataSet parentDataSet = new ParentDataSet();
